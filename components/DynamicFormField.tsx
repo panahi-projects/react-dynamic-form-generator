@@ -22,6 +22,7 @@ const DynamicFormField: React.FC<FieldProps> = (props) => {
       return <GroupField {...props} />;
     case "text":
     case "number":
+    case "email":
       return <InputField {...props} type={props.type} />;
     case "date":
       return <DatePickerField {...props} />;

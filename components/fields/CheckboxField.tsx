@@ -1,4 +1,5 @@
 import React from "react";
+import FieldWrapper from "../FieldWrapper";
 
 interface CheckboxFieldProps {
   id: string;
@@ -14,10 +15,7 @@ const CheckboxField: React.FC<CheckboxFieldProps> = ({
   required,
 }) => {
   return (
-    <div className="mb-4">
-      <p className="block text-sm font-medium text-gray-700">
-        {label} {required && <span className="text-red-500">*</span>}
-      </p>
+    <FieldWrapper id={id} label={label} required={required}>
       {options &&
         options.map((option) => (
           <label key={option} className="inline-flex items-center mt-1 mr-4">
@@ -31,7 +29,7 @@ const CheckboxField: React.FC<CheckboxFieldProps> = ({
             <span className="ml-2">{option}</span>
           </label>
         ))}
-    </div>
+    </FieldWrapper>
   );
 };
 

@@ -1,27 +1,23 @@
-interface BaseField {
+export interface BaseField {
   id: string;
   label: string;
   required?: boolean;
   type: string;
 }
 
-interface TextField extends BaseField {
-  type: "text";
-}
-
-interface NumberField extends BaseField {
-  type: "number";
+export interface TextField extends BaseField {
+  type: "text" | "number" | "email";
   validation?: {
     min?: number;
     max?: number;
   };
 }
 
-interface DateField extends BaseField {
+export interface DateField extends BaseField {
   type: "date";
 }
 
-interface SelectField extends BaseField {
+export interface SelectField extends BaseField {
   type: "select";
   options: string[];
   dynamicOptions?: {
@@ -31,34 +27,33 @@ interface SelectField extends BaseField {
   };
 }
 
-interface RadioField extends BaseField {
+export interface RadioField extends BaseField {
   type: "radio";
   options: string[];
 }
 
-interface CheckboxField extends BaseField {
+export interface CheckboxField extends BaseField {
   type: "checkbox";
   options: string[];
 }
 
-interface GroupField extends BaseField {
+export interface GroupField extends BaseField {
   type: "group";
   fields: FormField[];
 }
 
-interface VisibilityCondition {
+export interface VisibilityCondition {
   dependsOn: string;
   condition: "equals";
   value: string;
 }
 
-interface ConditionalField extends BaseField {
+export interface ConditionalField extends BaseField {
   visibility?: VisibilityCondition;
 }
 
-type FormField =
+export type FormField =
   | TextField
-  | NumberField
   | DateField
   | SelectField
   | RadioField

@@ -1,4 +1,5 @@
 import React from "react";
+import FieldWrapper from "../FieldWrapper";
 
 interface SelectFieldProps {
   id: string;
@@ -14,10 +15,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
   required,
 }) => {
   return (
-    <div className="mb-4">
-      <label htmlFor={id} className="block text-sm font-medium text-gray-700">
-        {label} {required && <span className="text-red-500">*</span>}
-      </label>
+    <FieldWrapper id={id} label={label} required={required}>
       <select
         id={id}
         required={required}
@@ -30,7 +28,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
             </option>
           ))}
       </select>
-    </div>
+    </FieldWrapper>
   );
 };
 
