@@ -1,17 +1,11 @@
 import React from "react";
 import DynamicFormField from "./DynamicFormField";
 
-interface FormProps {
-  fields: {
-    id: string;
-    label: string;
-    type: string;
-    required?: boolean;
-    placeholder?: string;
-  }[];
+interface DynamicFormProps {
+  fields: any[];
 }
 
-const DynamicForm: React.FC<FormProps> = ({ fields }) => {
+const DynamicForm: React.FC<DynamicFormProps> = ({ fields }) => {
   return (
     <form className="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md">
       {fields.map((field) => (
