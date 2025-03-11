@@ -3,7 +3,7 @@ import React from "react";
 interface SelectFieldProps {
   id: string;
   label: string;
-  options: string[];
+  options?: string[];
   required?: boolean;
 }
 
@@ -23,11 +23,12 @@ const SelectField: React.FC<SelectFieldProps> = ({
         required={required}
         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2"
       >
-        {options.map((option) => (
-          <option key={option} value={option}>
-            {option}
-          </option>
-        ))}
+        {options &&
+          options.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
       </select>
     </div>
   );

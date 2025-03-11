@@ -1,13 +1,13 @@
 import React from "react";
 
-interface RadioFieldProps {
+interface CheckboxFieldProps {
   id: string;
   label: string;
   options?: string[];
   required?: boolean;
 }
 
-const RadioField: React.FC<RadioFieldProps> = ({
+const CheckboxField: React.FC<CheckboxFieldProps> = ({
   id,
   label,
   options,
@@ -22,11 +22,11 @@ const RadioField: React.FC<RadioFieldProps> = ({
         options.map((option) => (
           <label key={option} className="inline-flex items-center mt-1 mr-4">
             <input
-              type="radio"
+              type="checkbox"
               name={id}
               value={option}
               required={required}
-              className="form-radio"
+              className="form-checkbox"
             />
             <span className="ml-2">{option}</span>
           </label>
@@ -35,4 +35,4 @@ const RadioField: React.FC<RadioFieldProps> = ({
   );
 };
 
-export default RadioField;
+export default CheckboxField;
