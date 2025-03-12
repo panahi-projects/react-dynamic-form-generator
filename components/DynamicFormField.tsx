@@ -6,15 +6,23 @@ import SelectField from "./fields/SelectField";
 import RadioField from "./fields/RadioField";
 import CheckboxField from "./fields/CheckboxField";
 
-interface FieldProps {
-  id: string;
-  label: string;
-  type: string;
-  required?: boolean;
-  placeholder?: string;
-  options?: string[];
-  fields?: any[];
-}
+import {
+  BaseField,
+  TextField as TextFieldType,
+  DateField as DateFieldType,
+  SelectField as SelectFieldType,
+  RadioField as RadioFieldType,
+  CheckboxField as CheckboxFieldType,
+} from "@/interfaces";
+
+// Define FieldProps as a union type of all field interfaces
+type FieldProps =
+  | TextFieldType
+  | DateFieldType
+  | SelectFieldType
+  | RadioFieldType
+  | CheckboxFieldType
+  | BaseField;
 
 const DynamicFormField: React.FC<FieldProps> = (props) => {
   switch (props.type) {
@@ -25,13 +33,13 @@ const DynamicFormField: React.FC<FieldProps> = (props) => {
     case "email":
       return <InputField {...props} type={props.type} />;
     case "date":
-      return <DatePickerField {...props} />;
+      return <DatePickerField {...(props as DateFieldType)} />;
     case "select":
-      return <SelectField {...props} />;
+      return <SelectField {...(props as SelectFieldType)} />;
     case "radio":
-      return <RadioField {...props} />;
+      return <RadioField {...(props as RadioFieldType)} />;
     case "checkbox":
-      return <CheckboxField {...props} />;
+      return <CheckboxField {...(props as CheckboxFieldType)} />;
     default:
       return null;
   }

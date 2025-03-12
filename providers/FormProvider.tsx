@@ -22,20 +22,23 @@ export const FormProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const validateField = (field: string, value: any) => {
+    let errorMessage = "";
+
     if (typeof value === "string" && value.trim() === "") {
-      setErrors((prev) => ({ ...prev, [field]: "This field is required." }));
+      errorMessage = "This field is required.";
     } else if (Array.isArray(value) && value.length === 0) {
-      setErrors((prev) => ({
-        ...prev,
-        [field]: "At least one option must be selected.",
-      }));
-    } else {
-      setErrors((prev) => {
+      errorMessage = "At least one option must be selected.";
+    }
+
+    setErrors((prev) => {
+      if (errorMessage) {
+        return { ...prev, [field]: errorMessage };
+      } else {
         const newErrors = { ...prev };
         delete newErrors[field];
         return newErrors;
-      });
-    }
+      }
+    });
   };
 
   const validateForm = () => {
@@ -43,12 +46,9 @@ export const FormProvider: React.FC<{ children: React.ReactNode }> = ({
     const newErrors: Record<string, string> = {};
 
     Object.keys(values).forEach((field) => {
-      if (Array.isArray(values[field]) && values[field].length === 0) {
-        newErrors[field] = "At least one option must be selected.";
-        isValid = false;
-      } else if (
-        typeof values[field] === "string" &&
-        values[field].trim() === ""
+      if (
+        !values[field] ||
+        (Array.isArray(values[field]) && values[field].length === 0)
       ) {
         newErrors[field] = "This field is required.";
         isValid = false;

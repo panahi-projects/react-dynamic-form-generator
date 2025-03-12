@@ -5,7 +5,6 @@ import DynamicFormField from "./DynamicFormField";
 const DynamicForm: React.FC<{ formData: any }> = ({ formData }) => {
   return (
     <FormProvider>
-      {/* ✅ Wrap everything in FormProvider */}
       <FormContent formData={formData} />
     </FormProvider>
   );
@@ -28,9 +27,15 @@ const FormContent: React.FC<{ formData: any }> = ({ formData }) => {
       {formData.fields.map((field: any) => (
         <DynamicFormField key={field.id} {...field} />
       ))}
-      <button type="submit" className="bg-blue-500 text-white p-2 mt-4">
-        Submit
-      </button>
+      {/* <ButtonField title="Submit Application" type="button" /> */}
+      <div className="flex justify-end">
+        <button
+          type="submit"
+          className="bg-primary rounded-md text-white py-2 px-6 mt-4"
+        >
+          Submit Application
+        </button>
+      </div>
     </form>
   );
 };

@@ -9,8 +9,8 @@ interface GroupFieldProps {
 
 const GroupField: React.FC<GroupFieldProps> = ({ id, label, fields }) => {
   return (
-    <fieldset className="mb-6 border border-gray-200 p-4 rounded-lg shadow-sm">
-      <legend className="text-sm text-secondary/55 font-semibold px-2">
+    <fieldset className="mb-6 border border-border p-4 rounded-lg shadow-sm">
+      <legend className="text-sm dark:text-primary-foreground text-secondary/55 font-semibold px-2">
         {label}
       </legend>
       {fields &&
