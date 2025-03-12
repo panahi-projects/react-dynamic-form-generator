@@ -4,6 +4,7 @@ interface FieldWrapperProps {
   id: string;
   label: string;
   required?: boolean;
+  error?: string; // Add error prop to accept error messages
   children: React.ReactNode;
 }
 
@@ -11,6 +12,7 @@ const FieldWrapper: React.FC<FieldWrapperProps> = ({
   id,
   label,
   required,
+  error,
   children,
 }) => {
   return (
@@ -20,6 +22,7 @@ const FieldWrapper: React.FC<FieldWrapperProps> = ({
         {required && <span className="text-red-500">*</span>}
       </label>
       {children}
+      {error && <p className="text-red-500 text-sm mt-1">{error}</p>}{" "}
     </div>
   );
 };

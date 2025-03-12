@@ -1,19 +1,20 @@
 import React from "react";
 import FieldWrapper from "../FieldWrapper";
+import { RadioField as RadioFieldType } from "@/interfaces";
+import { useForm } from "@/providers/FormProvider";
 
-interface RadioFieldProps {
-  id: string;
-  label: string;
-  options?: string[];
-  required?: boolean;
-}
-
-const RadioField: React.FC<RadioFieldProps> = ({
+const RadioField: React.FC<RadioFieldType> = ({
   id,
   label,
   options,
   required,
 }) => {
+  const { values, setValue } = useForm();
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(id, event.target.value);
+  };
+
   return (
     <FieldWrapper id={id} label={label} required={required}>
       {options &&
@@ -25,6 +26,8 @@ const RadioField: React.FC<RadioFieldProps> = ({
               value={option}
               required={required}
               className="form-radio"
+              checked={values[id] === option}
+              onChange={handleChange}
             />
             <span className="ml-2">{option}</span>
           </label>

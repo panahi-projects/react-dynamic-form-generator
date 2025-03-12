@@ -5,7 +5,6 @@ import DynamicFormField from "./DynamicFormField";
 const DynamicForm: React.FC<{ formData: any }> = ({ formData }) => {
   return (
     <FormProvider>
-      {" "}
       {/* ✅ Wrap everything in FormProvider */}
       <FormContent formData={formData} />
     </FormProvider>

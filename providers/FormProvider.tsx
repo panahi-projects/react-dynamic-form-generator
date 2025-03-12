@@ -1,57 +1,74 @@
-"use client";
-import React, { createContext, useContext, useState } from "react";
+import { useState, createContext, useContext } from "react";
 
-// Define type for field values
-type FormValues = Record<string, any>;
-
-// Define type for context
 interface FormContextType {
-  values: FormValues;
-  setValue: (fieldId: string, value: any) => void;
-  validateField?: (fieldId: string) => boolean;
-  validateForm?: () => boolean;
+  values: Record<string, any>;
+  errors: Record<string, string>;
+  setValue: (field: string, value: any) => void;
+  validateField: (field: string, value: any) => void;
+  validateForm: () => boolean;
 }
 
-// Create Context
 const FormContext = createContext<FormContextType | undefined>(undefined);
 
-// FormProvider Component
 export const FormProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [values, setValues] = useState<FormValues>({});
+  const [values, setValues] = useState<Record<string, any>>({});
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
-  // Function to update field values
-  const setValue = (fieldId: string, value: any) => {
-    setValues((prev) => ({
-      ...prev,
-      [fieldId]: value,
-    }));
+  const setValue = (field: string, value: any) => {
+    setValues((prev) => ({ ...prev, [field]: value }));
+    validateField(field, value);
   };
 
-  // Basic validation (example: checking required fields)
-  const validateField = (fieldId: string): boolean => {
-    if (values[fieldId] === undefined || values[fieldId] === "") {
-      return false;
+  const validateField = (field: string, value: any) => {
+    if (typeof value === "string" && value.trim() === "") {
+      setErrors((prev) => ({ ...prev, [field]: "This field is required." }));
+    } else if (Array.isArray(value) && value.length === 0) {
+      setErrors((prev) => ({
+        ...prev,
+        [field]: "At least one option must be selected.",
+      }));
+    } else {
+      setErrors((prev) => {
+        const newErrors = { ...prev };
+        delete newErrors[field];
+        return newErrors;
+      });
     }
-    return true;
   };
 
-  const validateForm = (): boolean => {
-    return Object.keys(values).every((key) => validateField(key));
+  const validateForm = () => {
+    let isValid = true;
+    const newErrors: Record<string, string> = {};
+
+    Object.keys(values).forEach((field) => {
+      if (Array.isArray(values[field]) && values[field].length === 0) {
+        newErrors[field] = "At least one option must be selected.";
+        isValid = false;
+      } else if (
+        typeof values[field] === "string" &&
+        values[field].trim() === ""
+      ) {
+        newErrors[field] = "This field is required.";
+        isValid = false;
+      }
+    });
+
+    setErrors(newErrors);
+    return isValid;
   };
 
   return (
     <FormContext.Provider
-      value={{ values, setValue, validateField, validateForm }}
+      value={{ values, errors, setValue, validateField, validateForm }}
     >
       {children}
     </FormContext.Provider>
   );
 };
 
-// Custom Hook for accessing the Form Context
-export const useForm = (): FormContextType => {
+export const useForm = () => {
   const context = useContext(FormContext);
   if (!context) {
     throw new Error("useForm must be used within a FormProvider");
