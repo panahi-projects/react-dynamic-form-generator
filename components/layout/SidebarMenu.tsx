@@ -56,7 +56,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ isOpen, onClose }) => {
                 Submissions List
               </Link>
               <Link
-                href="/submit"
+                href="/submit-application"
                 className="block text-lg text-gray-900 dark:text-white"
                 onClick={onClose}
               >
