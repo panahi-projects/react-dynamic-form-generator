@@ -1,0 +1,29 @@
+{
+  "columns": ["Full Name", "Age", "Gender", "Insurance Type", "City"],
+  "data": [
+    {
+      "id": "1",
+      "Full Name": "John Doe",
+      "Age": 28,
+      "Gender": "Male",
+      "Insurance Type": "Health",
+      "City": "New York"
+    },
+    {
+      "id": "2",
+      "Full Name": "Jane Smith",
+      "Age": 32,
+      "Gender": "Female",
+      "Insurance Type": "Home",
+      "City": "Los Angeles"
+    },
+    {
+      "id": "3",
+      "Full Name": "Alice Brown",
+      "Age": 40,
+      "Gender": "Female",
+      "Insurance Type": "Car",
+      "City": "Chicago"
+    }
+  ]
+}
