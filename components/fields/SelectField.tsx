@@ -19,7 +19,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
       <select
         id={id}
         required={required}
-        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2"
+        className="mt-1 bg-white block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2"
       >
         {options &&
           options.map((option) => (
