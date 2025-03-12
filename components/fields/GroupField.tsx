@@ -9,8 +9,10 @@ interface GroupFieldProps {
 
 const GroupField: React.FC<GroupFieldProps> = ({ id, label, fields }) => {
   return (
-    <fieldset className="bg-gray-50 mb-6 border border-gray-200 p-4 rounded-lg shadow-sm">
-      <legend className="text-lg font-semibold px-2">{label}</legend>
+    <fieldset className="mb-6 border border-gray-200 p-4 rounded-lg shadow-sm">
+      <legend className="text-sm text-secondary/55 font-semibold px-2">
+        {label}
+      </legend>
       {fields &&
         fields.map((field) => <DynamicFormField key={field.id} {...field} />)}
     </fieldset>

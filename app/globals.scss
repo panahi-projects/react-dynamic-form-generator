@@ -31,8 +31,8 @@ body {
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 0%;
     --primary: 0 0% 0%; /* Black */
-    --primary-foreground: 47 92% 53%; /* Gold */
-    --secondary: 47 92% 53%; /* Gold */
+    --primary-foreground: 0 100% 52%; /* Orange */
+    --secondary: 0 100% 52%; /* Orange */
     --secondary-foreground: 0 0% 0%; /* Black */
     --muted: 0 0% 9 %; /* dark Gray */
     --muted-foreground: 0 0% 20%;
@@ -43,10 +43,6 @@ body {
     --border: 0 0% 20%;
     --input: 0 0% 20%;
     --ring: 0 0% 0%;
-    --imdb-gold: 47 92% 53%; /* Gold */
-    --imdb-black: 0 0% 0%; /* Black */
-    --imdb-white: 0 0% 96%; /* Light White */
-    --imdb-blue: 197 69% 38%; /* Blue */
     --radius: 0.5rem;
     --shadow-color: 0 0% 65%;
   }
@@ -60,8 +56,8 @@ body {
     --popover: 0 0% 10%;
     --popover-foreground: 0 0% 100%;
     --primary: 0 0% 100%;
-    --primary-foreground: 47 92% 53%;
-    --secondary: 0 0% 17%;
+    --primary-foreground: 0 100% 52%; /* Orange */
+    --secondary: 0 100% 52%; /* Orange */
     --secondary-foreground: 214 83% 64%;
     --muted: 0 0% 9%;
     --muted-foreground: 0 0% 50%;
@@ -72,10 +68,6 @@ body {
     --border: 0 0% 20%;
     --input: 0 0% 20%;
     --ring: 0 0% 100%;
-    --imdb-gold: 47 92% 53%; /* Gold */
-    --imdb-black: 0 0% 0%; /* Black */
-    --imdb-white: 0 0% 96%; /* Light White */
-    --imdb-blue: 197 69% 38%; /* Blue */
     --shadow-color: 0 0% 2%;
   }
 }

@@ -18,7 +18,7 @@ const SelectField: React.FC<SelectFieldType> = ({
         required={required}
         value={values[id] || ""}
         onChange={(e) => setValue(id, e.target.value)}
-        className="mt-1 bg-white block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2"
+        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2"
       >
         <option value="" disabled>
           Select an option
