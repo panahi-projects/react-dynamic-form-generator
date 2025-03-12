@@ -24,9 +24,16 @@ import { Button } from "@/components/ui/button"; // Assuming you have a UI libra
 interface DataGridProps {
   columns: string[];
   data: any[];
+  filterBy?: string;
+  filterByPlaceholder?: string;
 }
 
-export const DataGrid: React.FC<DataGridProps> = ({ columns, data }) => {
+export const DataGrid: React.FC<DataGridProps> = ({
+  columns,
+  data,
+  filterBy,
+  filterByPlaceholder,
+}) => {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [rowSelection, setRowSelection] = useState({});
@@ -57,12 +64,16 @@ export const DataGrid: React.FC<DataGridProps> = ({ columns, data }) => {
     <div className="p-2">
       <div className="flex items-center py-4">
         <input
-          placeholder="Filter by Full Name..."
+          placeholder={`Filter by ${filterByPlaceholder || "Full Name"}...`}
           value={
-            (table.getColumn("Full Name")?.getFilterValue() as string) ?? ""
+            (table
+              .getColumn(filterBy || "Full Name")
+              ?.getFilterValue() as string) ?? ""
           }
           onChange={(event) =>
-            table.getColumn("Full Name")?.setFilterValue(event.target.value)
+            table
+              .getColumn(filterBy || "Full Name")
+              ?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
