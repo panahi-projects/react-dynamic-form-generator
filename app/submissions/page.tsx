@@ -22,7 +22,7 @@ const SubmissionsPage = () => {
   return (
     <div>
       {loading && <p>Loading...</p>}
-      {/* {error && <p className="text-red-500">{error}</p>} */}
+      {error && <p className="text-red-500">{error}</p>}
       <div className="container mx-auto p-4">
         {submissions && (
           <DataGrid columns={submissions.columns} data={submissions.data} />

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { api } from "@/utils/requests"; // Your centralized API factory
+import { api } from "@/utils/api"; // Your centralized API factory
 
 const useFetch = <T>(endpoint: string) => {
   const [data, setData] = useState<T | null>(null);
@@ -8,14 +8,14 @@ const useFetch = <T>(endpoint: string) => {
 
   useEffect(() => {
     const controller = new AbortController();
-    const { signal } = controller;
+    const signal = controller.signal;
 
     const fetchData = async () => {
       setLoading(true);
       setError(null);
 
       try {
-        const response = await api.get<T>(endpoint);
+        const response = await api.get<T>(endpoint); // ✅ No need to pass { signal }
 
         if (response.success && response.data !== undefined) {
           setData(response.data);
@@ -25,7 +25,6 @@ const useFetch = <T>(endpoint: string) => {
         }
       } catch (err: any) {
         if (err.name !== "AbortError") {
-          // Only set error if it’s NOT an aborted request
           setError("Failed to fetch data.");
         }
       } finally {
@@ -35,8 +34,10 @@ const useFetch = <T>(endpoint: string) => {
 
     fetchData();
 
-    // Cleanup function to abort the request when component unmounts
-    return () => controller.abort();
+    return () => {
+      controller.abort(); // ✅ Abort request on unmount
+      setError(null); // ✅ Clear error state to prevent displaying "Request Aborted"
+    };
   }, [endpoint]);
 
   return { data, loading, error };
