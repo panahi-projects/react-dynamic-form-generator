@@ -5,7 +5,7 @@ interface FormContextType {
   errors: Record<string, string>;
   setValue: (field: string, value: any) => void;
   validateField: (field: string, value: any) => void;
-  validateForm: () => boolean;
+  validateForm: (formFields: any[]) => boolean;
 }
 
 const FormContext = createContext<FormContextType | undefined>(undefined);
@@ -41,19 +41,25 @@ export const FormProvider: React.FC<{ children: React.ReactNode }> = ({
     });
   };
 
-  const validateForm = () => {
+  const validateForm = (formFields: any[]) => {
     let isValid = true;
     const newErrors: Record<string, string> = {};
 
-    Object.keys(values).forEach((field) => {
-      if (
-        !values[field] ||
-        (Array.isArray(values[field]) && values[field].length === 0)
-      ) {
-        newErrors[field] = "This field is required.";
-        isValid = false;
-      }
-    });
+    const validateFieldRecursive = (fields: any[]) => {
+      fields.forEach((field) => {
+        if (field.type === "group" && field.fields) {
+          validateFieldRecursive(field.fields);
+        } else if (
+          field.required &&
+          (!values[field.id] || values[field.id].length === 0)
+        ) {
+          newErrors[field.id] = "This field is required.";
+          isValid = false;
+        }
+      });
+    };
+
+    validateFieldRecursive(formFields);
 
     setErrors(newErrors);
     return isValid;

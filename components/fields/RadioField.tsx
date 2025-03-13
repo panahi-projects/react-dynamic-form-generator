@@ -9,14 +9,15 @@ const RadioField: React.FC<RadioFieldType> = ({
   options,
   required,
 }) => {
-  const { values, setValue } = useForm();
+  const { values, setValue, errors, validateField } = useForm();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(id, event.target.value);
+    validateField(id, event.target.value);
   };
 
   return (
-    <FieldWrapper id={id} label={label} required={required}>
+    <FieldWrapper id={id} label={label} required={required} error={errors[id]}>
       {options &&
         options.map((option) => (
           <label key={option} className="inline-flex items-center mt-1 mr-4">
@@ -24,7 +25,6 @@ const RadioField: React.FC<RadioFieldType> = ({
               type="radio"
               name={id}
               value={option}
-              required={required}
               className="form-radio"
               checked={values[id] === option}
               onChange={handleChange}

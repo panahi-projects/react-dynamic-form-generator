@@ -15,7 +15,10 @@ const FormContent: React.FC<{ formData: any }> = ({ formData }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (validateForm && validateForm()) {
+    const isValid = validateForm(formData.fields);
+    console.log("Form Submitted:", isValid);
+
+    if (isValid) {
       console.log("Form Submitted:", values);
     } else {
       console.log("Validation Failed!");
