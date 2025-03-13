@@ -56,7 +56,7 @@ class ApiFactory {
     } catch (error: any) {
       if (error.name === "AbortError") {
         console.warn(`Request aborted: ${url}`);
-        return { success: false, error: "Request aborted" };
+        return { success: false, error: undefined }; // No need to return an error
       }
       return { success: false, error: error.message || "Network error" };
     } finally {
