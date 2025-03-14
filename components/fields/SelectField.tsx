@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
-import FieldWrapper from "../FieldWrapper";
 import { SelectField as SelectFieldType } from "@/interfaces";
 import { useForm } from "@/providers/FormProvider";
-import useFetch from "@/hooks/useFetch";
+import React, { useEffect, useState } from "react";
+import FieldWrapper from "../FieldWrapper";
 
 const SelectField: React.FC<SelectFieldType> = ({
   id,
@@ -16,7 +15,6 @@ const SelectField: React.FC<SelectFieldType> = ({
   );
 
   useEffect(() => {
-    console.log("dynamicOptions >>>", dynamicOptions, id);
     if (dynamicOptions[id]) {
       setDynamicValues(Object.values(dynamicOptions[id])?.[1] || options || []);
     }

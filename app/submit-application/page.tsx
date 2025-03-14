@@ -1,6 +1,5 @@
 "use client";
 import DynamicForm from "@/components/DynamicForm";
-import formData from "@/data/formData.json";
 import useFetch from "@/hooks/useFetch";
 import * as framerMotion from "framer-motion";
 import { useState } from "react";

@@ -2,11 +2,6 @@
 import { DataGrid } from "@/components/DataGrid";
 import useFetch from "@/hooks/useFetch";
 
-// const data = {
-//   columns: ["Full Name", "Age", "Gender", "Insurance Type", "City"],
-//   data: [],
-// };
-
 interface SubmissionsData {
   columns: string[];
   data: any[];
