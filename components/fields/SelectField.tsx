@@ -37,11 +37,12 @@ const SelectField: React.FC<SelectFieldType> = ({
         <option value="" disabled>
           Select an option
         </option>
-        {dynamicValues.map((option) => (
-          <option key={option} value={option}>
-            {option}
-          </option>
-        ))}
+        {dynamicValues &&
+          dynamicValues?.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
       </select>
     </FieldWrapper>
   );
