@@ -14,13 +14,16 @@ const useFetch = <T>(endpoint: string, fetchOnMount: boolean = true) => {
       const response = await api.get<T>(endpoint);
       if (response.success && response.data !== undefined) {
         setData(response.data);
+        setError(null); // Ensure no lingering error
       } else {
         setData(null);
-        setError(response.error || "An unknown error occurred");
+        if (response.error) {
+          setError(response.error);
+        }
       }
     } catch (err: any) {
       if (err.name !== "AbortError") {
-        setError("Failed to fetch data.");
+        setError(err.message || "Failed to fetch data.");
       }
     } finally {
       setLoading(false);
@@ -28,12 +31,19 @@ const useFetch = <T>(endpoint: string, fetchOnMount: boolean = true) => {
   }, [endpoint]);
 
   useEffect(() => {
+    let isMounted = true; // Track component mount state
+
     if (fetchOnMount) {
-      fetchData();
+      fetchData().then(() => {
+        if (!isMounted) return; // Avoid setting state if unmounted
+      });
     } else {
-      // If fetchOnMount is false, set loading to false immediately
       setLoading(false);
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, [fetchOnMount, fetchData]);
 
   return { data, loading, error, refetch: fetchData };
