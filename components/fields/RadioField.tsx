@@ -1,15 +1,32 @@
 import React from "react";
 import FieldWrapper from "../FieldWrapper";
-import { RadioField as RadioFieldType } from "@/interfaces";
 import { useForm } from "@/providers/FormProvider";
 
-const RadioField: React.FC<RadioFieldType> = ({
+const RadioField: React.FC<any> = ({
   id,
   label,
   options,
   required,
+  dynamicOptions,
 }) => {
-  const { values, setValue, errors, validateField } = useForm();
+  const {
+    values,
+    setValue,
+    errors,
+    validateField,
+    shouldShowField,
+    // dynamicOptions: loadedOptions,
+  } = useForm();
+
+  // Hide field if condition isn't met
+  if (!shouldShowField({ id, label, options, required })) return null;
+
+  // Use static or dynamically loaded options
+  // const availableOptions = dynamicOptions
+  //   ? (loadedOptions as any)[id] || []
+  //   : options;
+
+  const availableOptions = options;
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(id, event.target.value);
@@ -18,8 +35,8 @@ const RadioField: React.FC<RadioFieldType> = ({
 
   return (
     <FieldWrapper id={id} label={label} required={required} error={errors[id]}>
-      {options &&
-        options.map((option) => (
+      {availableOptions &&
+        availableOptions.map((option: string) => (
           <label key={option} className="inline-flex items-center mt-1 mr-4">
             <input
               type="radio"

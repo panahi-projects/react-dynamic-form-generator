@@ -4,7 +4,7 @@ import formData from "@/data/formData.json";
 const ApplicationsPage = () => {
   return (
     <div className="container mx-auto p-4">
-      <DynamicForm formData={formData[1]} />
+      <DynamicForm formData={formData[0]} />
     </div>
   );
 };

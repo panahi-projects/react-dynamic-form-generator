@@ -4,7 +4,7 @@ import DynamicFormField from "./DynamicFormField";
 
 const DynamicForm: React.FC<{ formData: any }> = ({ formData }) => {
   return (
-    <FormProvider>
+    <FormProvider formSchema={formData}>
       <FormContent formData={formData} />
     </FormProvider>
   );

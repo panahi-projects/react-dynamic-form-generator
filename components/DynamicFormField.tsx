@@ -14,6 +14,7 @@ import {
   RadioField as RadioFieldType,
   CheckboxField as CheckboxFieldType,
 } from "@/interfaces";
+import { useForm } from "@/providers/FormProvider";
 
 // Define FieldProps as a union type of all field interfaces
 type FieldProps =
@@ -25,6 +26,10 @@ type FieldProps =
   | BaseField;
 
 const DynamicFormField: React.FC<FieldProps> = (props) => {
+  const { shouldShowField } = useForm();
+
+  if (!shouldShowField(props)) return null;
+
   switch (props.type) {
     case "group":
       return <GroupField {...props} />;

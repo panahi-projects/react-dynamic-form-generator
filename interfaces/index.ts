@@ -3,6 +3,11 @@ export interface BaseField {
   label: string;
   required?: boolean;
   type: string;
+  visibility?: {
+    dependsOn: string;
+    condition: string;
+    value: string;
+  };
 }
 
 export interface TextField extends BaseField {

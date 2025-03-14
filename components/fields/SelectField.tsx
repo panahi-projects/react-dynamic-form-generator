@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import FieldWrapper from "../FieldWrapper";
-import { SelectField as SelectFieldType } from "@/interfaces"; // Adjust path if needed
+import { SelectField as SelectFieldType } from "@/interfaces";
 import { useForm } from "@/providers/FormProvider";
+import useFetch from "@/hooks/useFetch";
 
 const SelectField: React.FC<SelectFieldType> = ({
   id,
@@ -9,8 +10,17 @@ const SelectField: React.FC<SelectFieldType> = ({
   options,
   required,
 }) => {
-  const { values, setValue, errors, validateField } = useForm();
+  const { values, setValue, errors, validateField, dynamicOptions } = useForm();
+  const [dynamicValues, setDynamicValues] = useState<string[]>(
+    dynamicOptions[id] || options || []
+  );
 
+  useEffect(() => {
+    console.log("dynamicOptions >>>", dynamicOptions, id);
+    if (dynamicOptions[id]) {
+      setDynamicValues(Object.values(dynamicOptions[id])?.[1] || options || []);
+    }
+  }, [dynamicOptions]);
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setValue(id, e.target.value);
     validateField(id, e.target.value);
@@ -27,12 +37,11 @@ const SelectField: React.FC<SelectFieldType> = ({
         <option value="" disabled>
           Select an option
         </option>
-        {options &&
-          options.map((option) => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
+        {dynamicValues.map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))}
       </select>
     </FieldWrapper>
   );
