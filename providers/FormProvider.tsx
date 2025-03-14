@@ -67,7 +67,6 @@ export const FormProvider: React.FC<{
   };
 
   const fetchDynamicOptions = async (fieldId: string, value: string) => {
-    debugger;
     const field = findFieldById(fieldId, formSchema.fields);
     if (!field || !field.dynamicOptions) return;
 
@@ -80,7 +79,6 @@ export const FormProvider: React.FC<{
           endpoint +
           `?${dependsOn}=${value}`
       );
-      debugger;
       if (response.ok && response !== undefined) {
         const data = await response.json();
         setDynamicOptions((prev) => ({
@@ -91,7 +89,6 @@ export const FormProvider: React.FC<{
         console.log("An unknown error occurred");
       }
     } catch (err: any) {
-      debugger;
       if (err.name !== "AbortError") {
         console.log("Failed to fetch data.");
       }
@@ -102,10 +99,7 @@ export const FormProvider: React.FC<{
     setValues((prev) => ({ ...prev, [field]: value }));
     validateField(field, value);
 
-    // Fetch dynamic options if the field has dependencies
-    debugger;
     Object.entries(dependencies).forEach(([key, val]) => {
-      debugger;
       if (val === field) {
         fetchDynamicOptions(key, value);
       }
