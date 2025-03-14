@@ -1,7 +1,5 @@
 "use client";
-import useFetch from "@/hooks/useFetch";
 import Link from "next/link";
-import { useEffect } from "react";
 
 export default function Home() {
   return (
@@ -9,7 +7,7 @@ export default function Home() {
       <h1 className="text-2xl font-bold mb-4 text-center">
         Smart Insurance Application Portal
       </h1>
-      <div className="flex space-x-4 p-4">
+      <div className="flex flex-col sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0 p-4 w-full max-w-2xl">
         {/* Box 1: List of Insurance Applications */}
         <Link href="/submissions" passHref>
           <div className="flex-1 p-6 bg-blue-100 rounded-lg shadow-md hover:bg-blue-200 transition duration-300 cursor-pointer">

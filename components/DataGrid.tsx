@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/table"; // Assuming you have a UI library or custom components
 // import { Input } from '@/components/ui/input'; // Assuming you have a UI library or custom components
 import { Button } from "@/components/ui/button"; // Assuming you have a UI library or custom components
+import { useRouter } from "next/navigation";
 
 interface DataGridProps {
   columns: string[];
@@ -34,6 +35,8 @@ export const DataGrid: React.FC<DataGridProps> = ({
   filterBy,
   filterByPlaceholder,
 }) => {
+  const router = useRouter();
+
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [rowSelection, setRowSelection] = useState({});
@@ -60,9 +63,12 @@ export const DataGrid: React.FC<DataGridProps> = ({
     getSortedRowModel: getSortedRowModel(),
   });
 
+  const handleRedirect = () => {
+    router.push("/submit-application");
+  };
   return (
     <div className="p-2">
-      <div className="flex items-center py-4">
+      <div className="flex justify-between items-center py-4">
         <input
           placeholder={`Filter by ${filterByPlaceholder || "Full Name"}...`}
           value={
@@ -77,6 +83,9 @@ export const DataGrid: React.FC<DataGridProps> = ({
           }
           className="max-w-sm"
         />
+        <Button variant="outline" size="sm" onClick={handleRedirect}>
+          + New Application
+        </Button>
       </div>
       <div className="rounded-md border">
         <Table>
