@@ -2,29 +2,10 @@ import React from "react";
 import FieldWrapper from "../FieldWrapper";
 import { useForm } from "@/providers/FormProvider";
 
-const RadioField: React.FC<any> = ({
-  id,
-  label,
-  options,
-  required,
-  dynamicOptions,
-}) => {
-  const {
-    values,
-    setValue,
-    errors,
-    validateField,
-    shouldShowField,
-    // dynamicOptions: loadedOptions,
-  } = useForm();
-
-  // Hide field if condition isn't met
+const RadioField: React.FC<any> = ({ id, label, options, required }) => {
+  const { values, setValue, errors, validateField, shouldShowField } =
+    useForm();
   if (!shouldShowField({ id, label, options, required })) return null;
-
-  // Use static or dynamically loaded options
-  // const availableOptions = dynamicOptions
-  //   ? (loadedOptions as any)[id] || []
-  //   : options;
 
   const availableOptions = options;
 

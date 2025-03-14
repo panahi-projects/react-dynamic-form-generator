@@ -7,7 +7,7 @@ interface GroupFieldProps {
   fields?: any[];
 }
 
-const GroupField: React.FC<GroupFieldProps> = ({ id, label, fields }) => {
+const GroupField: React.FC<GroupFieldProps> = ({ label, fields }) => {
   return (
     <fieldset className="mb-6 border border-border p-4 rounded-lg shadow-sm">
       <legend className="text-sm dark:text-primary-foreground text-secondary/55 font-semibold px-2">
