@@ -1,6 +1,9 @@
 "use client";
+import { useRouter } from "next/navigation";
 import { FormProvider, useForm } from "@/providers/FormProvider";
 import DynamicFormField from "./DynamicFormField";
+import usePost from "@/hooks/usePost";
+import { useEffect } from "react";
 
 const DynamicForm: React.FC<{ formData: any }> = ({ formData }) => {
   return (
@@ -11,22 +14,33 @@ const DynamicForm: React.FC<{ formData: any }> = ({ formData }) => {
 };
 
 const FormContent: React.FC<{ formData: any }> = ({ formData }) => {
+  const router = useRouter();
   const { values, validateForm } = useForm();
+  const { data, loading, error, postData } = usePost(
+    "/api/insurance/forms/submit"
+  );
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const isValid = validateForm(formData.fields);
-    console.log("Form Submitted:", isValid);
 
     if (isValid) {
-      console.log("Form Submitted:", values);
-    } else {
-      console.log("Validation Failed!");
+      await postData(values);
     }
   };
+  useEffect(() => {
+    if (data) {
+      router.push("/submissions");
+    }
+  }, [data, router]);
 
   return (
-    <form onSubmit={handleSubmit} className="mb-12">
+    <form onSubmit={handleSubmit} className="mb-12 relative">
+      {loading && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-white"></div>
+        </div>
+      )}
       {formData.fields.map((field: any) => (
         <DynamicFormField key={field.id} {...field} />
       ))}
@@ -35,8 +49,9 @@ const FormContent: React.FC<{ formData: any }> = ({ formData }) => {
           <button
             type="submit"
             className="bg-primary rounded-md text-white py-2 px-6 w-full sm:w-auto sm:mx-0"
+            disabled={loading}
           >
-            Submit Application
+            {loading ? "Submitting..." : "Submit Application"}
           </button>
         </div>
       </div>
