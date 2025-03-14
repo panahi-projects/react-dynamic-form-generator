@@ -48,7 +48,7 @@ const FormContent: React.FC<{ formData: any }> = ({ formData }) => {
         <div className="bg-gray-200 sm:bg-transparent fixed bottom-0 left-0 right-0 py-4 sm:relative sm:mt-0 sm:bottom-auto sm:left-auto sm:right-auto lg:px-0 px-4">
           <button
             type="submit"
-            className="bg-primary rounded-md text-white py-2 px-6 w-full sm:w-auto sm:mx-0"
+            className="bg-primary rounded-md dark:text-slate-900 text-white py-2 px-6 w-full sm:w-auto sm:mx-0"
             disabled={loading}
           >
             {loading ? "Submitting..." : "Submit Application"}

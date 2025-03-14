@@ -10,8 +10,10 @@ const ApplicationsPage = () => {
   const { motion } = framerMotion;
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-6 bg-gray-100">
-      <h1 className="text-2xl font-bold mb-6">Select an Insurance Type</h1>
+    <div className="flex flex-col items-center justify-center min-h-screen p-6">
+      <h1 className="text-2xl font-bold mb-6 text-accent">
+        Select an Insurance Type
+      </h1>
 
       <div className="flex flex-col sm:flex-row gap-4 w-full max-w-3xl">
         {loading && <p>Loading...</p>}
@@ -26,10 +28,10 @@ const ApplicationsPage = () => {
               onClick={() => setSelectedId(item.formId)}
               className={`p-6 rounded-lg shadow-lg cursor-pointer transition-all ${
                 selectedId === item.formId
-                  ? "w-full sm:w-3/4 bg-blue-100"
+                  ? "w-full sm:w-3/4 dark:bg-slate-900 bg-gray-200 dark:text-gray-50 text-red-900 hover:bg-orange-50 hover:text-accent"
                   : selectedId
-                  ? "w-1/3 bg-gray-200"
-                  : "w-full sm:w-1/3 bg-white hover:bg-blue-50"
+                  ? "w-1/3 dark:bg-secondary bg-gray-50"
+                  : "w-full sm:w-1/3 dark:bg-secondary dark:text-gray-50 text-secondary-foreground hover:bg-orange-50 dark:hover:bg-accent hover:text-accent"
               }`}
             >
               <h2 className="text-lg font-semibold text-center">
@@ -46,7 +48,7 @@ const ApplicationsPage = () => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 20 }}
           transition={{ duration: 0.3 }}
-          className="mt-6 p-6 bg-white rounded-lg shadow-md w-full max-w-3xl"
+          className="mt-6 p-6 dark:bg-slate-900 bg-gray-100 rounded-lg shadow-md w-full max-w-3xl"
         >
           {(formsData as any).find((item: any) => item.formId === selectedId)
             ?.fields ? (
