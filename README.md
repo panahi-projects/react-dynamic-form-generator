@@ -1,7 +1,6 @@
 # 📝 Dynamic Form Generator
 
-A **Next.js 15** project for generating dynamic forms with customizable fields.  
-Deployed Demo: [Live Demo](https://your-vercel-demo-url.vercel.app)
+A **Next.js 15** project for generating dynamic forms with customizable fields.
 
 ## 🚀 Features
 
