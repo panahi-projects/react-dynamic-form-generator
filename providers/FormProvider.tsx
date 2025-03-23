@@ -75,9 +75,8 @@ export const FormProvider: React.FC<{
 
     try {
       const response = await fetch(
-        process.env.NEXT_PUBLIC_API_BASE_URL +
-          endpoint +
-          `?${dependsOn}=${value}`
+        process.env.NEXT_PUBLIC_API_BASE_URL ||
+          "https://assignment.devotel.io" + endpoint + `?${dependsOn}=${value}`
       );
       if (response.ok && response !== undefined) {
         const data = await response.json();
